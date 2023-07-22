@@ -109,7 +109,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.mypersonalnetwork.mypersonalnetwork/com.mypersonalnetwork.HelloApplication</mainClass>
+              <mainClass>com.mypersonalnetwork.mypersonalnetwork/com.mypersonalnetwork.HomeApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
