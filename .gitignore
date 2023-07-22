@@ -40,3 +40,8 @@ mvnw.cmd
 
 ### Mac OS ###
 .DS_Store
+
+documentation/*.docx
+documentation/*.tmp
+documentation/*.drawio.bkp
+documentation/*.drawio
