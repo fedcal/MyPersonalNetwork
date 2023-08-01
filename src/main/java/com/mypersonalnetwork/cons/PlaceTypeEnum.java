@@ -8,6 +8,6 @@ public enum PlaceTypeEnum {
     PIZZERIA,
     GYM,
     HOTEL,
-    NATURAL_RESERVE,
+    NATURAL_RESERVE
 
 }

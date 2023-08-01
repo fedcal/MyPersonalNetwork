@@ -13,7 +13,7 @@ public class Person {
     private String city;
     private String province;
     private String address;
-    private String cityBirn;
+    private String cityBorn;
     private LocalDate dateBarthday;
     private String workPosition;
     private String workCity;
@@ -21,7 +21,7 @@ public class Person {
     private String geoLocation;
 
 
-    public Person(Integer id, String name, String surname, String phoneNumber, String city, String province, String address, String cityBirn, LocalDate dateBarthday, String workPosition, String workCity, String workCompany,String geoLocation) {
+    public Person(Integer id, String name, String surname, String phoneNumber, String city, String province, String address, String cityBorn, LocalDate dateBarthday, String workPosition, String workCity, String workCompany,String geoLocation) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -29,7 +29,7 @@ public class Person {
         this.city = city;
         this.province = province;
         this.address = address;
-        this.cityBirn = cityBirn;
+        this.cityBorn = cityBorn;
         this.dateBarthday = dateBarthday;
         this.workPosition = workPosition;
         this.workCity = workCity;
@@ -101,12 +101,12 @@ public class Person {
         this.address = address;
     }
 
-    public String getCityBirn() {
-        return cityBirn;
+    public String getcityBorn() {
+        return cityBorn;
     }
 
-    public void setCityBirn(String cityBirn) {
-        this.cityBirn = cityBirn;
+    public void setcityBorn(String cityBorn) {
+        this.cityBorn = cityBorn;
     }
 
     public LocalDate getDateBarthday() {
