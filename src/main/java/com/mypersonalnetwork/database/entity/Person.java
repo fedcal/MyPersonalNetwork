@@ -16,12 +16,12 @@ public class Person {
     private String cityBirn;
     private LocalDate dateBarthday;
     private String workPosition;
-    private String workPlace;
+    private String workCity;
     private String workCompany;
     private String geoLocation;
 
 
-    public Person(Integer id, String name, String surname, String phoneNumber, String city, String province, String address, String cityBirn, LocalDate dateBarthday, String workPosition, String workPlace, String workCompany,String geoLocation) {
+    public Person(Integer id, String name, String surname, String phoneNumber, String city, String province, String address, String cityBirn, LocalDate dateBarthday, String workPosition, String workCity, String workCompany,String geoLocation) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -32,7 +32,7 @@ public class Person {
         this.cityBirn = cityBirn;
         this.dateBarthday = dateBarthday;
         this.workPosition = workPosition;
-        this.workPlace = workPlace;
+        this.workCity = workCity;
         this.workCompany = workCompany;
         this.geoLocation = geoLocation;
     }
@@ -125,12 +125,12 @@ public class Person {
         this.workPosition = workPosition;
     }
 
-    public String getWorkPlace() {
-        return workPlace;
+    public String getWorkCity() {
+        return workCity;
     }
 
-    public void setWorkPlace(String workPlace) {
-        this.workPlace = workPlace;
+    public void setWorkCity(String workCity) {
+        this.workCity = workCity;
     }
 
     public String getWorkCompany() {
