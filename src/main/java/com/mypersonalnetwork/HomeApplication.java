@@ -21,6 +21,7 @@ public class HomeApplication extends Application {
         LogMain.writeLog("Start programming\n", Level.INFO,HomeApplication.class.getName());
         try {
             DbConnection dbConnection = new DbConnection();
+            dbConnection.exportData();
         } catch(ClassNotFoundException e) {
             LogMain.writeLog(e.getClass()+" Driver Database non trovato.\n", Level.WARNING,HomeApplication.class.getName());
         } catch(InstantiationException e){

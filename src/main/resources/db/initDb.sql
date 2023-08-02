@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS relationship(idRelationship int PRIMARY KEY, idPerson
                                         FOREIGN KEY (idPerson1) REFERENCES person(idPerson),FOREIGN KEY (idPerson2) REFERENCES person(idPerson),
                                         FOREIGN KEY (idTypeRelation) REFERENCES typeRelation(idTypeRelation));
 
-CREATE TABLE IF NOT EXISTS place (idPlace ing PRIMARY KEY, name VARCHAR(250), geoLocation VARCHAR(250), adress VARCHAR(250),
+CREATE TABLE IF NOT EXISTS place (idPlace int PRIMARY KEY, name VARCHAR(250), geoLocation VARCHAR(250), adress VARCHAR(250),
                                   city VARCHAR(50),cap VARCHAR(15), typePlace VARCHAR(50));
