@@ -3,10 +3,7 @@ package com.mypersonalnetwork.database.connection;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -108,74 +105,93 @@ public class DbConnection {
                 lines.close();
 
                 // GET PERSON TABLE DATA
-                String personTableData = "INSERT INTO person(idPerson,name,surname,adress,city,province,phoneNumber,workPosition,workCity,workCompany,geoLocation,birthday,cityBorn) VALUES ";
-                String queryGetPerson = "SELECT * FROM person;";
-                ResultSet rs = this.conn.createStatement().executeQuery(queryGetPerson);
+                String personTableData = "";
+                ResultSet rs;
 
-                while (rs.next()){
-                    personTableData += "(";
-                    personTableData += String.valueOf(rs.getInt("idPerson")) + ",";
-                    personTableData += rs.getString("name") + ",";
-                    personTableData += rs.getString("surname") + ",";
-                    personTableData += rs.getString("adress") + ",";
-                    personTableData += rs.getString("city") + ",";
-                    personTableData += rs.getString("province") + ",";
-                    personTableData += rs.getString("phoneNumber") + ",";
-                    personTableData += rs.getString("workPosition") + ",";
-                    personTableData += rs.getString("workCity") + ",";
-                    personTableData += rs.getString("workCompany") + ",";
-                    personTableData += rs.getString("geoLocation") + ",";
-                    personTableData += rs.getString("birthday") + ",";
-                    personTableData += rs.getString("cityBorn");
-                    personTableData += "),";
+                try {
+                    rs = getQuery("SELECT * FROM person;");
+                    personTableData = "INSERT INTO person(idPerson,name,surname,adress,city,province,phoneNumber,workPosition,workCity,workCompany,geoLocation,birthday,cityBorn) VALUES ";
+                    while (rs.next()){
+                        personTableData += "(";
+                        personTableData += String.valueOf(rs.getInt("idPerson")) + ",";
+                        personTableData += "\'" + rs.getString("name") + "\'" + ",";
+                        personTableData += "\'" + rs.getString("surname")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("adress")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("city")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("province")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("phoneNumber")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("workPosition")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("workCity")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("workCompany")+ "\'" + ",";
+                        personTableData += "\'" + rs.getString("geoLocation")+ "\'" + ",";
+                        personTableData += "DATA(" + rs.getDate("birthday") +")" + ",";
+                        personTableData += "\'" + rs.getString("cityBorn")+ "\'";
+                        personTableData += "),";
+                    }
+                    personTableData = personTableData.substring(0,personTableData.length()-1)+";";
+                }catch (Exception e){
+
                 }
-                personTableData = personTableData.substring(0,personTableData.length()-1)+";";
 
                 //GET TYPERELATION TABLE DATA
-                String typeRelationData = "INSERT INTO typeRelation(idTypeRelation,nameRelation) VALUES ";
-                String queryGetRelationData = "SELECT * FROM typeRelation;";
-                rs = this.conn.createStatement().executeQuery(queryGetRelationData);
+                String typeRelationData = "";
 
-                while (rs.next()){
-                    typeRelationData += "(";
-                    typeRelationData += String.valueOf(rs.getInt("idTypeRelation")) + ",";
-                    typeRelationData += rs.getString("nameRelation") + ",";
-                    typeRelationData += "),";
+                try {
+                    typeRelationData = "INSERT INTO typeRelation(idTypeRelation,nameRelation) VALUES ";
+                    rs = getQuery("SELECT * FROM typeRelation;");
+                    while (rs.next()){
+                        typeRelationData += "(";
+                        typeRelationData += String.valueOf(rs.getInt("idTypeRelation")) + ",";
+                        typeRelationData += "\'" + rs.getString("nameRelation") + "\'" +  ",";
+                        typeRelationData += "),";
+                    }
+                    typeRelationData = typeRelationData.substring(0,typeRelationData.length()-1)+";";
+                }catch (Exception e){
+
                 }
-                typeRelationData = typeRelationData.substring(0,typeRelationData.length()-1)+";";
 
                 //GET RELATIONSHIPDATA TABLE DATA
-                String relationshipData = "INSERT INTO relationship(idRelationship,idPerson1,idPerson2,idTypeRelation) VALUES ";
-                String queryGetRelationshipData = "SELECT * FROM relationship;";
-                rs = this.conn.createStatement().executeQuery(queryGetRelationshipData);
+                String relationshipData = "";
 
-                while (rs.next()){
-                    relationshipData += "(";
-                    relationshipData += String.valueOf(rs.getInt("idRelationship")) + ",";
-                    relationshipData += rs.getString("idPerson1") + ",";
-                    relationshipData += rs.getString("idPerson2") + ",";
-                    relationshipData += rs.getString("idTypeRelation") + ",";
-                    relationshipData += "),";
+                try {
+                    relationshipData = "INSERT INTO relationship(idRelationship,idPerson1,idPerson2,idTypeRelation) VALUES ";
+                    rs = getQuery("SELECT * FROM relationship;");
+                    while (rs.next()){
+                        relationshipData += "(";
+                        relationshipData += String.valueOf(rs.getInt("idRelationship")) + ",";
+                        relationshipData += rs.getString("idPerson1") + ",";
+                        relationshipData += rs.getString("idPerson2") + ",";
+                        relationshipData += rs.getString("idTypeRelation") + ",";
+                        relationshipData += "),";
+                    }
+                    relationshipData = relationshipData.substring(0,relationshipData.length()-1)+";";
+                }catch (Exception e){
+
                 }
-                relationshipData = relationshipData.substring(0,relationshipData.length()-1)+";";
 
                 //GET PLACE TABLE DATA
-                String placeData = "INSERT INTO place(idPlace,name,geoLocation,adress,city,cap,typePlace) VALUES ";
-                String queryGetplaceData = "SELECT * FROM place;";
-                rs = this.conn.createStatement().executeQuery(queryGetplaceData);
+                String placeData = "";
 
-                while (rs.next()){
-                    placeData += "(";
-                    placeData += String.valueOf(rs.getInt("idPlace")) + ",";
-                    placeData += rs.getString("name") + ",";
-                    placeData += rs.getString("geoLocation") + ",";
-                    placeData += rs.getString("adress") + ",";
-                    placeData += rs.getString("city") + ",";
-                    placeData += rs.getString("cap") + ",";
-                    placeData += rs.getString("typePlace") + ",";
-                    placeData += "),";
+                try {
+                    placeData = "INSERT INTO place(idPlace,name,geoLocation,adress,city,cap,typePlace) VALUES ";
+                    typeRelationData = "INSERT INTO typeRelation(idTypeRelation,nameRelation) VALUES ";
+                    rs = this.conn.createStatement().executeQuery("SELECT * FROM place;");
+
+                    while (rs.next()){
+                        placeData += "(";
+                        placeData += String.valueOf(rs.getInt("idPlace")) + ",";
+                        placeData += "\'" + rs.getString("name") + "\'" + ",";
+                        placeData += "\'" + rs.getString("geoLocation") + "\'"+ ",";
+                        placeData += "\'" + rs.getString("adress") + "\'"+ ",";
+                        placeData += "\'" + rs.getString("city") + "\'"+ ",";
+                        placeData += "\'" + rs.getString("cap") + "\'"+ ",";
+                        placeData += "\'" + rs.getString("typePlace") + "\'"+ ",";
+                        placeData += "),";
+                    }
+                    placeData = placeData.substring(0,placeData.length()-1)+";";
+                }catch (Exception e){
+
                 }
-                placeData = placeData.substring(0,placeData.length()-1)+";";
 
                 String finalQuery = initDB + "\n"+defaultData+"\n"+personTableData+"\n"+
                         typeRelationData+"\n"+relationshipData+"\n"+placeData;
@@ -187,7 +203,20 @@ public class DbConnection {
         } catch (IOException e) {
             LogMain.writeLog("Impossibile scrivere il file relativo all'export dei dati", Level.WARNING,DbConnection.class.getName());
         }
+    }
 
+    public ResultSet getQuery(String query) throws SQLException {
+        return this.conn.createStatement().executeQuery(query);
+    }
+    public Boolean updateQuey(String query){
+        try {
+            PreparedStatement ps = this.conn.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
     public static String getDriverClassName() {
