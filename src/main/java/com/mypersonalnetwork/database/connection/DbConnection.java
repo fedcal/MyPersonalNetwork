@@ -15,44 +15,44 @@ import org.json.simple.parser.ParseException;
 
 public class DbConnection {
     private static String DRIVER_CLASS_NAME;
-    private String DBMS = "";
-    private String SERVER = "";
-    private String DATABASE = "";
-    private int PORT = 3306;
-    private String USER_ID = "";
-    private String PASSWORD = "";
-    private Connection conn;
+    private static String DBMS = "";
+    private static String SERVER = "";
+    private static String DATABASE = "";
+    private static int PORT = 3306;
+    private static String USER_ID = "";
+    private static String PASSWORD = "";
+    private static Connection conn;
 
-    private final String pathFolder = "./exportDataDB";
-    private final String nameFile = "/export-data-db.sql";
+    private static final String pathFolder = "./exportDataDB";
+    private static final String nameFile = "/export-data-db.sql";
 
     public DbConnection() throws DatabaseConnectionException, FileNotFoundException, IOException, ParseException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         initConnection();
     }
 
-    private void initConnection() throws DatabaseConnectionException, FileNotFoundException,IOException,ParseException,ClassNotFoundException,InstantiationException,IllegalAccessException,SQLException{
+    private static void initConnection() throws DatabaseConnectionException, FileNotFoundException,IOException,ParseException,ClassNotFoundException,InstantiationException,IllegalAccessException,SQLException{
         JSONParser jsonParser = new JSONParser();
         FileReader reader = new FileReader("./configuration/dbConfiguration.json");
 
         Object obj = jsonParser.parse(reader);
         JSONObject jObject = (JSONObject) obj;
-        this.DRIVER_CLASS_NAME = (String) jObject.get("DRIVER_CLASS_NAME");
-        this.DBMS = (String) jObject.get("DBMS");
-        this.SERVER = (String) jObject.get("SERVER");
-        this.DATABASE = (String) jObject.get("DATABASE");
-        this.PORT =  Integer.valueOf(jObject.get("PORT").toString());
-        this.USER_ID = (String) jObject.get("USER_ID");
-        this.PASSWORD = (String) jObject.get("PASSWORD");
+        DRIVER_CLASS_NAME = (String) jObject.get("DRIVER_CLASS_NAME");
+        DBMS = (String) jObject.get("DBMS");
+        SERVER = (String) jObject.get("SERVER");
+        DATABASE = (String) jObject.get("DATABASE");
+        PORT =  Integer.valueOf(jObject.get("PORT").toString());
+        USER_ID = (String) jObject.get("USER_ID");
+        PASSWORD = (String) jObject.get("PASSWORD");
 
         Class.forName(DRIVER_CLASS_NAME).newInstance();
 
         String connectionString = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE
                 + "?user=" + USER_ID + "&password=" + PASSWORD + "&serverTimezone=UTC";
-        this.conn = DriverManager.getConnection(connectionString);
+        conn = DriverManager.getConnection(connectionString);
 
 
     }
-    private void updateDbConfiguration(String server, String database, int port, String user, String password) throws IOException {
+    private static void updateDbConfiguration(String server, String database, int port, String user, String password) throws IOException {
         JSONObject dbData = new JSONObject();
         dbData.put("DRIVER_CLASS_NAME","com.mysql.cj.jdbc.Driver");
         dbData.put("DBMS","jdbc:mysql");
@@ -72,11 +72,11 @@ public class DbConnection {
         return this.conn;
     }
 
-    public void closeConnection() throws SQLException {
-        this.conn.close();
+    public static void closeConnection() throws SQLException {
+        conn.close();
     }
 
-    public void exportData() throws IOException, DatabaseConnectionException, SQLException, ParseException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void exportData() throws IOException, DatabaseConnectionException, SQLException, ParseException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         initConnection();
         if(!Files.exists(Path.of(pathFolder))) {
             try {
@@ -124,7 +124,7 @@ public class DbConnection {
                         personTableData += "\'" + rs.getString("workCity")+ "\'" + ",";
                         personTableData += "\'" + rs.getString("workCompany")+ "\'" + ",";
                         personTableData += "\'" + rs.getString("geoLocation")+ "\'" + ",";
-                        personTableData += "DATA(" + rs.getDate("birthday") +")" + ",";
+                        personTableData += "DATE(" + rs.getDate("birthday") +")" + ",";
                         personTableData += "\'" + rs.getString("cityBorn")+ "\'";
                         personTableData += "),";
                     }
@@ -175,7 +175,7 @@ public class DbConnection {
                 try {
                     placeData = "INSERT INTO place(idPlace,name,geoLocation,adress,city,cap,typePlace) VALUES ";
                     typeRelationData = "INSERT INTO typeRelation(idTypeRelation,nameRelation) VALUES ";
-                    rs = this.conn.createStatement().executeQuery("SELECT * FROM place;");
+                    rs = conn.createStatement().executeQuery("SELECT * FROM place;");
 
                     while (rs.next()){
                         placeData += "(";
@@ -205,12 +205,12 @@ public class DbConnection {
         }
     }
 
-    public ResultSet getQuery(String query) throws SQLException {
-        return this.conn.createStatement().executeQuery(query);
+    public static ResultSet getQuery(String query) throws SQLException {
+        return conn.createStatement().executeQuery(query);
     }
-    public Boolean updateQuey(String query){
+    public static Boolean updateQuey(String query){
         try {
-            PreparedStatement ps = this.conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query);
             ps.executeUpdate();
             ps.close();
             return true;
