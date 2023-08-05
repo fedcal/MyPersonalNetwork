@@ -4,12 +4,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.mypersonalnetwork.HomeApplication;
-import com.mypersonalnetwork.allert.AllertDialogs;
 import com.mypersonalnetwork.logsystem.LogMain;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -27,6 +26,8 @@ public class DbConnection {
 
     private static final String pathFolder = "./exportDataDB";
     private static final String nameFile = "/export-data-db.sql";
+    private static final String setupDb = "./src/main/resources/db/initDb.sql";
+    private static final String dataDb = "./src/main/resources/db/default-data.sql";
 
     public DbConnection() throws DatabaseConnectionException, FileNotFoundException, IOException, ParseException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         initConnection();
@@ -260,5 +261,17 @@ public class DbConnection {
 
     public String getNameFile() {
         return nameFile;
+    }
+
+    public void setup() throws IOException {
+        List<String> linesSetupDb = Files.readAllLines(Path.of(setupDb));
+        for(int i=0; i<=linesSetupDb.size();i=i+2 ){
+            updateQuey(linesSetupDb.get(i));
+        }
+
+        List<String> linesDataDb = Files.readAllLines(Path.of(dataDb));
+        for(int i=0; i<=linesSetupDb.size();i=i+2 ){
+            updateQuey(linesDataDb.get(i));
+        }
     }
 }

@@ -82,4 +82,33 @@ public class HomeController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    private void setupDbSchemaAndData() throws IOException {
+        DbConnection dbConnection;
+
+        try {
+            dbConnection = new DbConnection();
+            dbConnection.setup();
+            LogMain.writeLog("Connessione al db per setup tabelle.\n", Level.INFO, HomeApplication.class.getName());
+            AllertDialogs.viewPopUp("INFORMATION","Setup table db OK!");
+        } catch(ClassNotFoundException e) {
+            AllertDialogs.viewPopUp("ERROR","Driver Database non trovato.");
+            LogMain.writeLog(e.getClass()+" Driver Database non trovato.\n", Level.WARNING,HomeApplication.class.getName());
+        } catch(InstantiationException e){
+            AllertDialogs.viewPopUp("ERROR","Errore durante l'inizializzazione della connessione al database.");
+            LogMain.writeLog(e.getClass()+" Errore durante l'inizializzazione della connessione al database.\n", Level.WARNING,HomeApplication.class.getName());
+        } catch(IllegalAccessException e){
+            AllertDialogs.viewPopUp("ERROR","Accesso al driver del database negato.");
+            LogMain.writeLog(e.getClass()+" Accesso al driver del database negato.\n", Level.WARNING,HomeApplication.class.getName());
+        }catch(SQLException e) {
+            AllertDialogs.viewPopUp("ERROR","Impossibile eseguire la query di connessione oppure setup db già eseguito.");
+            LogMain.writeLog(e.getClass()+" Impossibile eseguire la query di connessione oppure setup db già eseguito.\n", Level.WARNING,HomeApplication.class.getName());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (DatabaseConnectionException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
