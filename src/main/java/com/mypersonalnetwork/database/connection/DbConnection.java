@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.mypersonalnetwork.HomeApplication;
+import com.mypersonalnetwork.allert.AllertDialogs;
 import com.mypersonalnetwork.logsystem.LogMain;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -77,7 +79,7 @@ public class DbConnection {
     }
 
     public static void exportData() throws IOException, DatabaseConnectionException, SQLException, ParseException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        initConnection();
+
         if(!Files.exists(Path.of(pathFolder))) {
             try {
                 Files.createDirectories(Path.of(pathFolder));
@@ -200,6 +202,7 @@ public class DbConnection {
 
 
             }
+
         } catch (IOException e) {
             LogMain.writeLog("Impossibile scrivere il file relativo all'export dei dati", Level.WARNING,DbConnection.class.getName());
         }
