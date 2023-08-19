@@ -46,7 +46,7 @@ public class HomeController {
     @FXML
     private void addPeople() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-people-view.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
+        Parent root =  fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("My Personal Netowork - Add People");
@@ -104,11 +104,24 @@ public class HomeController {
             AllertDialogs.viewPopUp("ERROR","Impossibile eseguire la query di connessione oppure setup db già eseguito.");
             LogMain.writeLog(e.getClass()+" Impossibile eseguire la query di connessione oppure setup db già eseguito.\n", Level.WARNING,HomeApplication.class.getName());
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            AllertDialogs.viewPopUp("ERROR","ParseException exception");
+            LogMain.writeLog(e.getClass()+" ParseException exception\n", Level.WARNING,HomeApplication.class.getName());
         } catch (DatabaseConnectionException e) {
-            throw new RuntimeException(e);
+            AllertDialogs.viewPopUp("ERROR","DatabaseConnectionException exception");
+            LogMain.writeLog(e.getClass()+" DatabaseConnectionException exception\n", Level.WARNING,HomeApplication.class.getName());
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            AllertDialogs.viewPopUp("ERROR","FileNotFoundException exception");
+            LogMain.writeLog(e.getClass()+" FileNotFoundException exception\n", Level.WARNING,HomeApplication.class.getName());
         }
+    }
+    @FXML
+    private void dbConnectionView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("database-settings.fxml"));
+        Parent root =  fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("My Personal Netowork - Database Settings");
+        stage.setResizable(false);
+        stage.show();
     }
 }

@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.mypersonalnetwork.allert.AllertDialogs;
 import com.mypersonalnetwork.logsystem.LogMain;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -218,6 +219,8 @@ public class DbConnection {
             ps.executeUpdate();
             ps.close();
             return true;
+        } catch(SQLIntegrityConstraintViolationException e){
+            return false;
         } catch (SQLException e) {
             return false;
         }
@@ -264,14 +267,42 @@ public class DbConnection {
     }
 
     public void setup() throws IOException {
-        List<String> linesSetupDb = Files.readAllLines(Path.of(setupDb));
-        for(int i=0; i<=linesSetupDb.size();i=i+2 ){
-            updateQuey(linesSetupDb.get(i));
+        List<String> linesSetupDb = null;
+        try {
+            linesSetupDb = Files.readAllLines(Path.of(setupDb));
+        } catch (IOException e) {
+            AllertDialogs.viewPopUp("ERROR","SetupBd File non trovato");
+            try {
+                LogMain.writeLog(e.getClass()+" FileNotFoundException exception\n", Level.WARNING, DbConnection.class.getName());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        for(int i=0; i<linesSetupDb.size();i++ ){
+            if(updateQuey(linesSetupDb.get(i))){
+                LogMain.writeLog("Setup Tabelle\n", Level.INFO, DbConnection.class.getName());
+            }else{
+                LogMain.writeLog("Ritenta Setup Tabelle\n", Level.WARNING, DbConnection.class.getName());
+            }
         }
 
-        List<String> linesDataDb = Files.readAllLines(Path.of(dataDb));
-        for(int i=0; i<=linesSetupDb.size();i=i+2 ){
-            updateQuey(linesDataDb.get(i));
+        List<String> linesDataDb = null;
+        try {
+            linesDataDb = Files.readAllLines(Path.of(dataDb));
+        } catch (IOException e) {
+            AllertDialogs.viewPopUp("ERROR","dataDb File non trovato");
+            try {
+                LogMain.writeLog(e.getClass()+" FileNotFoundException exception\n", Level.WARNING, DbConnection.class.getName());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        for(int i=0; i<linesDataDb.size();i++ ){
+            if(updateQuey(linesDataDb.get(i))){
+                LogMain.writeLog("Setup Data Tabelle\n", Level.INFO, DbConnection.class.getName());
+            }else{
+                LogMain.writeLog("Ritenta Setup Data Tabelle\n", Level.WARNING, DbConnection.class.getName());
+            }
         }
     }
 }

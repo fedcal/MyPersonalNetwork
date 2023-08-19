@@ -16,4 +16,5 @@ module com.mypersonalnetwork {
     opens com.mypersonalnetwork to javafx.fxml;
     exports com.mypersonalnetwork;
     exports com.mypersonalnetwork.database.connection;
+    exports com.mypersonalnetwork.controller;
 }
