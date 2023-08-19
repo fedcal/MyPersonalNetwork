@@ -34,11 +34,11 @@ public class LogMain {
         if(typeLog.equals("WARNING")){
             writeExceptionLog(msg);
         }else {
-            writeMainLog(msg,typeLog);
+            writeMainLog(msg);
         }
     }
 
-    private static void writeMainLog(String msg, Level typeLog) throws IOException {
+    private static void writeMainLog(String msg) throws IOException {
         Stream<String> lines = Files.lines(Path.of(pathFolder+mainLog));
         String data = lines.collect(Collectors.joining("\n"));
         lines.close();

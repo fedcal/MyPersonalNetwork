@@ -3,12 +3,10 @@ package com.mypersonalnetwork.database.entity;
 public class RelationType {
     private Integer idRelationType;
     private String nameRelation;
-    private String typeRelation;
 
-    public RelationType(Integer idRelationType, String nameRelation, String typeRelation) {
+    public RelationType(Integer idRelationType, String nameRelation) {
         this.idRelationType = idRelationType;
         this.nameRelation = nameRelation;
-        this.typeRelation = typeRelation;
     }
 
     public Integer getIdRelationType() {
@@ -27,11 +25,4 @@ public class RelationType {
         this.nameRelation = nameRelation;
     }
 
-    public String getTypeRelation() {
-        return typeRelation;
-    }
-
-    public void setTypeRelation(String typeRelation) {
-        this.typeRelation = typeRelation;
-    }
 }

@@ -1,4 +1,4 @@
-module com.mypersonalnetwork.mypersonalnetwork {
+module com.mypersonalnetwork {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -15,4 +15,6 @@ module com.mypersonalnetwork.mypersonalnetwork {
 
     opens com.mypersonalnetwork to javafx.fxml;
     exports com.mypersonalnetwork;
+    exports com.mypersonalnetwork.database.connection;
+    exports com.mypersonalnetwork.controller;
 }
