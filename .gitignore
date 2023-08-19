@@ -45,3 +45,5 @@ documentation/*.docx
 documentation/*.tmp
 documentation/*.drawio.bkp
 documentation/*.drawio
+logging
+exportDataDB

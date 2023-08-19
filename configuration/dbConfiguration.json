@@ -1,0 +1,1 @@
+{"DRIVER_CLASS_NAME":"com.mysql.cj.jdbc.Driver","DATABASE":"mypersonalnetwork","PORT":3306,"PASSWORD":"root","SERVER":"localhost","USER_ID":"root","DBMS":"jdbc:mysql"}
