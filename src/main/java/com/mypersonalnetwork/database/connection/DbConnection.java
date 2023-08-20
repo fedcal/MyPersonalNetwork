@@ -213,7 +213,7 @@ public class DbConnection {
     public static ResultSet getQuery(String query) throws SQLException {
         return conn.createStatement().executeQuery(query);
     }
-    public static Boolean updateQuey(String query){
+    public static Boolean updateQuery(String query){
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.executeUpdate();
@@ -279,7 +279,7 @@ public class DbConnection {
             }
         }
         for(int i=0; i<linesSetupDb.size();i++ ){
-            if(updateQuey(linesSetupDb.get(i))){
+            if(updateQuery(linesSetupDb.get(i))){
                 LogMain.writeLog("Setup Tabelle\n", Level.INFO, DbConnection.class.getName());
             }else{
                 LogMain.writeLog("Ritenta Setup Tabelle\n", Level.WARNING, DbConnection.class.getName());
@@ -298,7 +298,7 @@ public class DbConnection {
             }
         }
         for(int i=0; i<linesDataDb.size();i++ ){
-            if(updateQuey(linesDataDb.get(i))){
+            if(updateQuery(linesDataDb.get(i))){
                 LogMain.writeLog("Setup Data Tabelle\n", Level.INFO, DbConnection.class.getName());
             }else{
                 LogMain.writeLog("Ritenta Setup Data Tabelle\n", Level.WARNING, DbConnection.class.getName());

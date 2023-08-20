@@ -10,7 +10,7 @@
       <Label layoutX="113.0" layoutY="14.0" text="My Personal Network" />
       <Button fx:id="addRelationsheep" layoutX="186.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Add Relationsheep" />
       <Button fx:id="viewRelationsheep" layoutX="186.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="View Relationsheep" />
-      <Button fx:id="aboutPeople" layoutX="14.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="About People" />
+      <Button fx:id="aboutPeople" layoutX="14.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="People Info" />
       <Button fx:id="dbConnection" layoutX="14.0" layoutY="162.0" mnemonicParsing="false" onAction="#dbConnectionView" prefHeight="25.0" prefWidth="140.0" text="DB Connection" />
       <Button fx:id="exportDb" layoutX="186.0" layoutY="162.0" mnemonicParsing="false" onAction="#extractDB" prefHeight="25.0" prefWidth="140.0" text="Export DB" />
       <Button fx:id="setupDb" layoutX="100.0" layoutY="201.0" mnemonicParsing="false" onAction="#setupDbSchemaAndData" prefHeight="25.0" prefWidth="140.0" text="Setup DB Schema" />
