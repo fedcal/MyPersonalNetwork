@@ -8,3 +8,7 @@ This software is not for a commercial use. The sooftware is owned by [Federico C
 and use will be free, commercial use by third parties is prohibited.
 
 No personal data will be collected. You will be able to subscribe to a newsletter to receive software news.
+
+## Note
+
+We use a google api to convert the address into geo coordinate. An example of usage is in [this link](http://www.javaroots.com/2013/08/convert-location-lat-long-java.html)
